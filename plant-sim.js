@@ -12,3 +12,18 @@
 // growth +5 each turn, +10 each turn when fertilizer > 0 and < 6
 // once plant is at 50 growth, flowers bud. 60, flowers bloom. 75, fruit forms. 100, fruit is ripe!
 // if plant fails to grow for 3 turns, it dies... game over
+
+const readlineSync = require('readline-sync')
+
+const getInput = (prompt) => {
+  return readlineSync.question(`${prompt} `)
+}
+
+// greet a new player
+
+const greetPlayer = () => {
+  let username = getInput('Hello, farmer! What is your name? ')
+  console.log(`Hi, ${username}! Welcome to the farm!`)
+}
+
+greetPlayer()
