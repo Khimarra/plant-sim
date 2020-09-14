@@ -23,7 +23,7 @@ const spacer = "========================================"
 
 // base plant stats
 let water = 50
-let growth = 60
+let growth = 0
 let sun = 2
 let sunType
 let fertilizer = 0
