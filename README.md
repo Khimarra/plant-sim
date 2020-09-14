@@ -14,6 +14,10 @@ Download this repo and run `npm i` inside the root directory to install dependen
 Current dependencies:
 - readline-sync
 
+## How to Play
+
+From inside the root of this repo, simply run `node plant-sim.js` and follow the prompts! If you wish to exit before the game is over, use `command c` or `ctrl c` to end the game.
+
 ## Future Changes
 
 - Refactor to allow for different plant types
