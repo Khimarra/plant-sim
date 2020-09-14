@@ -31,23 +31,25 @@ const greetPlayer = () => {
   console.log('To help you get some growing practice, I want you to grow a ripe tomato.')
   console.log('There is a seedling in the pot in front of you.')
   console.log('It will require water, sun, and lots of care to grow into a mature tomato plant!')
+  readyCheck()
 }
 
 // ask player if they're ready, capture response, use response to send next message
 const readyCheck = () => {
-  let ready = getInput('Are you ready to start caring for your plant? (Y/N)')
+  let ready = getInput('Are you ready to start caring for your plant? Type (Y) for yes, or (N) for no.')
   console.log(spacer)
+  
+  ready = ready.toUpperCase()
 
-  if (ready === 'y' || ready === 'Y') {
+  // currently not actually checking for no
+  if (ready === 'Y' || ready === 'YES') {
     console.log('game play function goes here...')
-  } else {
+  } else if (ready === 'N' || ready === 'NO') {
     console.log('Oh, ok. Maybe next time.')
+  } else {
+    console.log("What was that? I didn't understand you.")
+    readyCheck()
   }
 }
 
-const playGame = () => {
-  greetPlayer()
-  readyCheck()
-}
-
-playGame() 
+greetPlayer()
