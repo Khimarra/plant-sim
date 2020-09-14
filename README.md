@@ -9,7 +9,7 @@ This is a simple plant-sim game. The goal is to grow a tomato plant to full matu
 
 This game runs in node. If you do not already have node installed, follow the installation instructions [here](https://nodejs.org/en/download/package-manager/)
 
-Download this repo and run `npm i` inside the root directory to install dependencies.
+Download this repo and run `npm install readline-sync` inside the root directory to install dependencies.
 
 Current dependencies:
 - readline-sync
