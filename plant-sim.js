@@ -45,16 +45,32 @@ const plantStats = () => {
   }
 
   // establish growth levels
-  if (growth < 0) {
-    dead = true
+  if (growth < 50) {
+    flowers = false
   } else if (growth >= 50) {
     flowers = true
+  }
+
+  if (growth < 60) {
+    bloom = false
   } else if (growth >= 60) {
     bloom = true
+  }
+
+  if (growth < 75) {
+    fruit = false
   } else if (growth >= 75) {
     fruit = true
+  }
+
+  if (growth < 100) {
+    ripe = false
   } else if (growth >= 100) {
     ripe = true
+  }
+
+  if (growth < 0) {
+    dead = true
   }
 
   // log current status of plant
