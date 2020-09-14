@@ -20,6 +20,7 @@ From inside the root of this repo, simply run `node plant-sim.js` and follow the
 
 ## Future Changes
 
+- BUG-FIX: Water over 100% or under 0% should kill the plant. Currently not working.
 - Refactor to allow for different plant types
   - Some plants will be easier to grow than others
   - Math on plantStats to find percentages instead of values, starting values will be different for each plant.

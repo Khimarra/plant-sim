@@ -34,6 +34,7 @@ let bloom
 let fruit
 let ripe
 
+// check and print plant stats each turn
 const plantStats = () => {
   // establish sun values
   if (sun === 1) {
@@ -105,11 +106,14 @@ const plantStats = () => {
 
 // everything that happens on each turn
 const playerTurn = () => {
+  // check plant stats before entering while loop to know if conditions are met
   plantStats()
 
+  // continues to run until plant dies or player wins
   while (!win && !dead) {
     console.log("What would you like to do?")
 
+    // choice options - depends on sun
     let choice
     if (sun < 3 && sun > 1) {
       choice = getInput(
@@ -125,8 +129,10 @@ const playerTurn = () => {
       )
     }
 
+    // accept responses regardless of case
     choice = choice.toUpperCase()
 
+    // responses to player choices
     if (choice === "W") {
       water += 25
       console.log(spacer)
@@ -148,6 +154,7 @@ const playerTurn = () => {
       console.log("You took a nap.")
     }
 
+    // add growth if there is fertilizer, lose growth if there is too much
     if (fertilizer >= 1 && fertilizer <= 5) {
       growth += 5
       fertilizer -= 1
@@ -159,6 +166,7 @@ const playerTurn = () => {
 
     let growthZone = water >= 25 && water <= 75
 
+    // lose water each turn, gain growth if growthZone is true
     if (sun === 1) {
       water -= 5
     } else if (sun === 2 && growthZone) {
@@ -173,6 +181,11 @@ const playerTurn = () => {
       water -= 20
     }
 
+    // ==============================
+    // CURRENTLY NOT WORKING PROPERLY
+    // ==============================
+    // if growthZone is true, add growth. if too wet or too dry, lose growth.
+    // if water is under 0% or over 100%, lose a lot of growth
     if (growthZone) {
       growth += 5
     } else if (water < 25) {
@@ -195,6 +208,7 @@ const playerTurn = () => {
       )
     }
 
+    // log stats again before re-entering the while loop
     plantStats()
   }
 }
@@ -214,15 +228,19 @@ const greetPlayer = () => {
 
 // ask player if they're ready, capture response, use response to send next message
 const readyCheck = () => {
-  let ready = getInput('Are you ready to start caring for your plant? Type (Y) for yes, or (N) for no.')
+  let ready = getInput(
+    "Are you ready to start caring for your plant? Type (Y) for yes, or (N) for no."
+  )
   console.log(spacer)
-  
+
+  // accept responses regardless of case
   ready = ready.toUpperCase()
 
-  if (ready === 'Y' || ready === 'YES') {
+  // responses to player's choice. also allow player to type yes or no
+  if (ready === "Y" || ready === "YES") {
     playerTurn()
-  } else if (ready === 'N' || ready === 'NO') {
-    console.log('Oh, ok. Maybe next time.')
+  } else if (ready === "N" || ready === "NO") {
+    console.log("Oh, ok. Maybe next time.")
   } else {
     console.log("What was that? I didn't understand you.")
     readyCheck()
