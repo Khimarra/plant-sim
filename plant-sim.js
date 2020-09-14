@@ -19,11 +19,35 @@ const getInput = (prompt) => {
   return readlineSync.question(`${prompt} `)
 }
 
-// greet a new player
+const spacer = "========================================"
 
+// ask for username and greet player
 const greetPlayer = () => {
+  console.log(spacer)
   let username = getInput('Hello, farmer! What is your name? ')
+  console.log(spacer)
+
   console.log(`Hi, ${username}! Welcome to the farm!`)
+  console.log('To help you get some growing practice, I want you to grow a ripe tomato.')
+  console.log('There is a seedling in the pot in front of you.')
+  console.log('It will require water, sun, and lots of care to grow into a mature tomato plant!')
 }
 
-greetPlayer()
+// ask player if they're ready, capture response, use response to send next message
+const readyCheck = () => {
+  let ready = getInput('Are you ready to start caring for your plant? (Y/N)')
+  console.log(spacer)
+
+  if (ready === 'y' || ready === 'Y') {
+    console.log('game play function goes here...')
+  } else {
+    console.log('Oh, ok. Maybe next time.')
+  }
+}
+
+const playGame = () => {
+  greetPlayer()
+  readyCheck()
+}
+
+playGame() 
