@@ -33,6 +33,9 @@ let flowers
 let bloom
 let fruit
 let ripe
+let growthZone
+let choice
+let validChoice 
 
 // check and print plant stats each turn
 const plantStats = () => {
@@ -111,107 +114,124 @@ const playerTurn = () => {
 
   // continues to run until plant dies or player wins
   while (!win && !dead) {
+    growthZone = water >= 25 && water <= 75
+
     console.log("What would you like to do?")
 
-    // choice options - depends on sun
-    let choice
-    if (sun < 3 && sun > 1) {
-      choice = getInput(
-        "type (W) to water your plant, (IS) to increase sun, (DS) to decrease sun, (F) to fertilize, or (N) to do nothing."
-      )
-    } else if (sun === 1) {
-      choice = getInput(
-        "type (W) to water your plant, (IS) to increase sun, (F) to fertelize, or (N) to do nothing."
-      )
-    } else if (sun === 3) {
-      choice = getInput(
-        "type (W) to water your plant, (DS) to decrease sun, (F) to fertelize, or (N) to do nothing."
-      )
-    }
-
     // accept responses regardless of case
-    choice = choice.toUpperCase()
 
-    // responses to player choices
-    if (choice === "W") {
-      water += 25
-      console.log(spacer)
-      console.log("You have watered your plant.")
-    } else if (choice === "IS") {
-      sun += 1
-      console.log(spacer)
-      console.log("You have increased the amount of sun for your plant.")
-    } else if (choice === "DS") {
-      sun -= 1
-      console.log(spacer)
-      console.log("You have decreased the amount of sun for your plant.")
-    } else if (choice === "F") {
-      fertilizer += 3
-      console.log(spacer)
-      console.log("You have fertilized your plant.")
-    } else {
-      console.log(spacer)
-      console.log("You took a nap.")
+    playerChoice()
+
+
+    if (validChoice) {
+      // add growth if there is fertilizer, lose growth if there is too much
+      if (fertilizer >= 1 && fertilizer <= 5) {
+        growth += 5
+        fertilizer -= 1
+      } else if (fertilizer > 5) {
+        growth -= 2
+        fertilizer -= 1
+        console.log("Uh oh, all that fertilizer is hurting your plant!")
+      }
+  
+      growthCheck() 
+  
+      // lose water each turn, gain growth if growthZone is true
+      if (sun === 1) {
+        water -= 5
+      } else if (sun === 2 && growthZone) {
+        water -= 10
+        growth += 2
+      } else if (sun === 2 && !growthZone) {
+        water -= 10
+      } else if (sun === 3 && growthZone) {
+        water -= 20
+        growth += 4
+      } else if (sun === 3 && !growthZone) {
+        water -= 20
+      }
+  
+      // log stats again before re-entering the while loop
+      plantStats()
     }
-
-    // add growth if there is fertilizer, lose growth if there is too much
-    if (fertilizer >= 1 && fertilizer <= 5) {
-      growth += 5
-      fertilizer -= 1
-    } else if (fertilizer > 5) {
-      growth -= 2
-      fertilizer -= 1
-      console.log("Uh oh, all that fertilizer is hurting your plant!")
-    }
-
-    let growthZone = water >= 25 && water <= 75
-
-    // lose water each turn, gain growth if growthZone is true
-    if (sun === 1) {
-      water -= 5
-    } else if (sun === 2 && growthZone) {
-      water -= 10
-      growth += 2
-    } else if (sun === 2 && !growthZone) {
-      water -= 10
-    } else if (sun === 3 && growthZone) {
-      water -= 20
-      growth += 4
-    } else if (sun === 3 && !growthZone) {
-      water -= 20
-    }
-
-    // ==============================
-    // CURRENTLY NOT WORKING PROPERLY
-    // ==============================
-    // if growthZone is true, add growth. if too wet or too dry, lose growth.
-    // if water is under 0% or over 100%, lose a lot of growth
-    if (growthZone) {
-      growth += 5
-    } else if (water < 25) {
-      console.log(
-        "Your plant is looking pretty dry, you may want to water it, or decrease its sun!"
-      )
-    } else if (water > 75) {
-      console.log(
-        "Your plant is drowning! You may want to increase the sun to help dry it out!"
-      )
-    } else if (water < 0) {
-      growth -= 20
-      console.log(
-        "Your plant is dying! Water it and move it to the shade immediately!"
-      )
-    } else if (water > 100) {
-      growth -= 10
-      console.log(
-        "Your plant is dying! Move it into the sun to help it dry out immediately!"
-      )
-    }
-
-    // log stats again before re-entering the while loop
-    plantStats()
   }
 }
+
+// if growthZone is true, add growth. if too wet or too dry, lose growth.
+// if water is under 0% or over 100%, lose a lot of growth
+const growthCheck = () => {
+  if (growthZone) {
+    growth += 5
+  } else if (water < 0) {
+    growth -= 20
+    console.log(
+      "Your plant is dying! Water it and move it to the shade immediately!"
+    )
+  } else if (water > 100) {
+    growth -= 10
+    console.log(
+      "Your plant is dying! Move it into the sun to help it dry out immediately!"
+    )
+  } else if (water < 25) {
+    console.log(
+      "Your plant is looking pretty dry, you may want to water it, or decrease its sun!"
+    )
+  } else if (water > 75) {
+    console.log(
+      "Your plant is drowning! You may want to increase the sun to help dry it out!"
+    )
+  }
+
+}
+
+// choice options - depends on sun
+const playerChoice = () => {
+  if (sun < 3 && sun > 1) {
+    choice = getInput(
+      "type (W) to water your plant, (IS) to increase sun, (DS) to decrease sun, (F) to fertilize, or (N) to do nothing."
+    )
+  } else if (sun === 1) {
+    choice = getInput(
+      "type (W) to water your plant, (IS) to increase sun, (F) to fertelize, or (N) to do nothing."
+    )
+  } else if (sun === 3) {
+    choice = getInput(
+      "type (W) to water your plant, (DS) to decrease sun, (F) to fertelize, or (N) to do nothing."
+    )
+  }
+  choice = choice.toUpperCase()
+  evaluateChoice()
+}
+
+// responses to player choices
+const evaluateChoice = () => {
+  validChoice = true
+  if (choice === "W") {
+    water += 25
+    console.log(spacer)
+    console.log("You have watered your plant.")
+  } else if (choice === "IS") {
+    sun += 1
+    console.log(spacer)
+    console.log("You have increased the amount of sun for your plant.")
+  } else if (choice === "DS") {
+    sun -= 1
+    console.log(spacer)
+    console.log("You have decreased the amount of sun for your plant.")
+  } else if (choice === "F") {
+    fertilizer += 3
+    console.log(spacer)
+    console.log("You have fertilized your plant.")
+  } else if (choice === "N") {
+    console.log(spacer)
+    console.log("You took a nap.")
+  } else {
+    console.log(spacer)
+    console.log('What was that?')
+    validChoice = false
+  }
+}
+
 
 // ask for username and greet player
 const greetPlayer = () => {

@@ -1,0 +1,24 @@
+{
+  "name": "plant-sim",
+  "version": "1.0.0",
+  "description": "A plant growing simulator for your terminal",
+  "main": "plant-sim.js",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node plant-sim.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khimarra/plant-sim.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Khimarra/plant-sim/issues"
+  },
+  "homepage": "https://github.com/Khimarra/plant-sim#readme"
+}
