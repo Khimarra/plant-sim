@@ -21,48 +21,89 @@ const getInput = (prompt) => {
 
 const spacer = "========================================"
 
-const tomato = {
-  name: 'tomato',
-  minWater: 0,
-  maxWater: 100,
-  water: 30,
-  growth: 0,
-  sun: 2,
-  fertilizer: 0
+// const tomato = {
+//   name: 'tomato',
+//   minWater: 0,
+//   maxWater: 100,
+//   water: 30,
+//   growth: 0,
+//   sun: 2,
+//   fertilizer: 0
+// }
+
+// const watermelon = {
+//   name: "watermelon",
+//   minWater: 0,
+//   maxWater: 100,
+//   water: 50,
+//   growth: 0,
+//   sun: 2,
+//   fertilizer: 0,
+// }
+// const corn = {
+//   name: "corn",
+//   minWater: 0,
+//   maxWater: 100,
+//   water: 80,
+//   growth: 0,
+//   sun: 2,
+//   fertilizer: 0,
+// }
+
+class Plant {
+  minWater = 0
+  growth = 0
+  sun = 2
+  fertilizer = 0
+
+  constructor(name, maxWater) {
+    this.name = name
+    this.maxWater = maxWater
+    this.water = maxWater / 2
+  }
+
+  flowerCheck() {
+    if (this.growth >= 50) {
+      console.log("Your can see some flowers on your plant!")
+    }
+  }
+
+  bloomCheck() {
+    if (this.growth >= 60) {
+      console.log("Some of the flowers are blooming!")
+    }
+  }
+
+  fruitCheck() {
+    if (this.growth >= 75) {
+     console.log(
+       `There are small green ${this.name} sprouting from some of the flowers. They seem to be getting bigger!`
+     )
+    }
+  }
+
+  ripeCheck() {
+    if (this.growth >= 100) {
+      console.log("One of the tomatoes has ripened! You did it!!!")
+      win = true
+    }
+  }
 }
 
-const watermelon = {
-  name: "watermelon",
-  minWater: 0,
-  maxWater: 100,
-  water: 50,
-  growth: 0,
-  sun: 2,
-  fertilizer: 0,
-}
-const corn = {
-  name: "corn",
-  minWater: 0,
-  maxWater: 100,
-  water: 80,
-  growth: 0,
-  sun: 2,
-  fertilizer: 0,
-}
+let tomato = new Plant('tomato', 100)
+let watermelon = new Plant('watermelon', 150)
+let corn = new Plant('corn', 80)
 
 const plants = [tomato, watermelon, corn]
 
-
 let plant
+
+let flowers
+let dead
 
 // base plant stats
 let sunType
 let win = false
-let dead
-let flowers
-let bloom
-let fruit
-let ripe
 let growthZone
 let choice
 let validChoice 
@@ -79,29 +120,6 @@ const plantStats = () => {
   }
 
   // establish growth levels
-  if (plant.growth < 50) {
-    flowers = false
-  } else if (plant.growth >= 50) {
-    flowers = true
-  }
-
-  if (plant.growth < 60) {
-    bloom = false
-  } else if (plant.growth >= 60) {
-    bloom = true
-  }
-
-  if (plant.growth < 75) {
-    fruit = false
-  } else if (plant.growth >= 75) {
-    fruit = true
-  }
-
-  if (plant.growth < 100) {
-    ripe = false
-  } else if (plant.growth >= 100) {
-    ripe = true
-  }
 
   if (plant.growth < 0) {
     dead = true
@@ -113,27 +131,16 @@ const plantStats = () => {
   } else {
     console.log(`Your tomato is currently at ${plant.growth}% of its total growth.`)
     console.log(`Its soil is at ${plant.water}% moisture.`)
-    console.log(`It is currently in ${plant.sunType}.`)
+    console.log(`It is currently in ${sunType}.`)
     console.log(`It has ${plant.fertilizer} doses of fertilizer.`)  
 
-    if (flowers) {
-      console.log("Your can see some flowers on your plant!")
-    }
+    plant.flowerCheck()
 
-    if (bloom) {
-      console.log("Some of the flowers are blooming!")
-    }
+    plant.bloomCheck()
 
-    if (fruit) {
-      console.log(
-        "There are small green tomatoes sprouting from some of the flowers. They seem to be getting bigger!"
-      )
-    }
+    plant.fruitCheck()
 
-    if (ripe) {
-      console.log("One of the tomatoes has ripened! You did it!!!")
-      win = true
-    }
+    plant.ripeCheck()
   }
 }
 
