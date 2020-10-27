@@ -1,13 +1,13 @@
 # plant-sim
-A plant growing simulator for your terminal
+A plant growing simulator for your terminal - Soon to be on the web!
 
 ## Purpose
 
-This is a simple plant-sim game. The goal is to grow a tomato plant to full maturity until it produces a ripe tomato! The amount of sun, soil moisture, and amount of fertilizer all effect how quickly the plant grows. If it is too wet, too dry, or has too much fertilizer, it will begin to die. The amount of sun it recieves can be adjusted, too. More sun helps the plant grow faster, but also dries it out.
+This is a simple plant-sim game. The goal is to grow a plant to full maturity until it produces a ripe tomato! The amount of sun, soil moisture, and amount of fertilizer all effect how quickly the plant grows. If it is too wet, too dry, or has too much fertilizer, it will begin to die. The amount of sun it recieves can be adjusted, too. More sun helps the plant grow faster, but also dries it out.
 
 ## Installation
 
-This game runs in node. If you do not already have node installed, follow the installation instructions [here](https://nodejs.org/en/download/package-manager/)
+This game currently runs in node. If you do not already have node installed, follow the installation instructions [here](https://nodejs.org/en/download/package-manager/)
 
 Download this repo. That's it!
 
@@ -20,10 +20,13 @@ From inside the root of this repo, simply run `npm start` and follow the prompts
 
 ## Future Changes
 
-- Refactor plant types to plant class instead of initializing separate objects
+- Refactor plant types to plant class instead of initializing separate objects - started, need to finish
 - Allow re-play (ask if player wants to try again)
 - Refactor functions to make them smaller/more modular
 - Add flavor text to previous edits
+- Fix existing flavor text to relate to each plant, not just the original tomato
+- Make an HTML page and apply DOM manipulation to make this a web app
+- Add CSS
 
 ## Potential Features
 
