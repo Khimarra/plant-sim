@@ -1,7 +1,20 @@
 # plant-sim
 A plant growing simulator for your terminal - Soon to be on the web!
 
-## Purpose
+- [Full Stack Project](#Full-Stack-Project)
+  - [Overview](#Overview)
+  - [Installation](#Installation)
+  - [How to Play](#How-to-Play)
+  - [MVP](#MVP)
+    - [CLI MVP Goals](#CLI-MVP-Goals)
+    - [Web-App MVP Goals](#Web-App-MVP-Goals)
+      -[Wireframes](#Wireframes)
+  - [Post MVP](#Post-MVP)
+  - [Project Change Log](#Project-Change-Log)
+  - [Code Showcase](#Code-Showcase)
+  - [Code Issues & Resolutions](#Code-Issues--Resolutions)
+
+## Overview
 
 This is a simple plant-sim game. The goal is to grow a plant to full maturity until it produces a ripe tomato! The amount of sun, soil moisture, and amount of fertilizer all effect how quickly the plant grows. If it is too wet, too dry, or has too much fertilizer, it will begin to die. The amount of sun it recieves can be adjusted, too. More sun helps the plant grow faster, but also dries it out.
 
@@ -28,7 +41,63 @@ From inside the root of this repo, simply run `npm start` and follow the prompts
 - Make an HTML page and apply DOM manipulation to make this a web app
 - Add CSS
 
-## Potential Features
+## MVP
+
+### CLI MVP Goals
+
+- _Initialize Readline Sync to prompt Player - DONE_
+- _Create game loop with win condition (plant grows to maturity) - DONE_
+- _Plants grow when water level is not too high or too low, fertilizer is not too high, and they are getting enough sun - DONE
+- _Different levels of sun result in different growth per turn - DONE_
+- _Fertilizer boosts growth - DONE_
+- _Too much fertilizer kills the plant - DONE_
+- _Too much or too little water kills the plant - DONE_
+- _Allow Player to choose from list of different plants - DONE_
+- _Allow replay option at the end - DONE_
+- _Error handling on each prompt in case Player enters invalid option - DONE_
+
+### Web-App MVP Goals
+
+- _Create wireframes to plan visual layout of the app_
+- _Create HTML skeleton_
+- _Covert JS to manipulate the DOM_
+- _Style with CSS to match wireframes_
+
+#### Wireframes
+
+### Timeframes
+
+| Task                     | Priority | Estimated Time | Actual Time |
+| ------------------------ | :------: | :------------: | :---------: |
+| Create README            |    H     |     1 hr       |     1 hr    |
+| Interview 1              |    H     |     1 hr       |     1 hr    |
+| Interview 2              |    H     |     1 hr       |     1 hr    |
+| Interview 3              |    H     |     1 hr       |     1 hr    |
+| Post Interview Planning  |    H     |     2 hrs      |     2 hr    |
+| Polish and Refactor CLI  |    H     |     3 hrs      |             |
+| Add to Portfolio         |    H     |     1 hr       |             |
+| Wireframes               |    M     |     2 hrs      |             |
+| HTML Page                |    M     |     1 hr       |             |
+| Convert to DOM manip.    |    M     |     3 hrs      |             |
+| Base Level Styling       |    M     |     3 hrs      |             |
+| Extra Styling and Anims. |    L     |     5 hrs      |             |
+| TOTAL                    |          |     6 hrs      |     24 hrs  |
+
+
+### Schedule
+
+| Day     | Deliverables                              | Complete? |
+| ------- | ----------------------------------------- | --------- |
+| --      | Base Functionality (during interviews)    | YES       |
+|Oct 26th | Post-Interview Planning                   | YES       |
+|Oct 28th | Refactor and Polish CLI app               |           |
+|Oct 29th | Add CLI to Portfolio and LinkedIn         |           |
+|Nov 3rd  | Wireframes, HTML Skeleton                 |           |
+|Nov 4th  | Refactor to DOM, Base Styles              |           |
+|Nov 5th  | Styling Polish and Animations             |           |
+|Nov 6th  | Add Web App to Portfolio and LinkedIn     |           |
+
+## Post MVP
 
 - Weather events 
   - rain increases soil moisture, automatically puts plant in shade
@@ -53,3 +122,9 @@ From inside the root of this repo, simply run `npm start` and follow the prompts
   - weeds prevent additional growth
   - pests and diseases shrink growth
   - additional upgrades to get rid of weeds, pests, and diseases
+
+## Project Change Log
+
+## Code Showcase
+
+## Code Issues & Resolutions
