@@ -1,18 +1,17 @@
 # plant-sim
 A plant growing simulator for your terminal - Soon to be on the web!
 
-- [Full Stack Project](#Full-Stack-Project)
-  - [Overview](#Overview)
-  - [Installation](#Installation)
-  - [How to Play](#How-to-Play)
-  - [MVP](#MVP)
-    - [CLI MVP Goals](#CLI-MVP-Goals)
-    - [Web-App MVP Goals](#Web-App-MVP-Goals)
-      -[Wireframes](#Wireframes)
-  - [Post MVP](#Post-MVP)
-  - [Project Change Log](#Project-Change-Log)
-  - [Code Showcase](#Code-Showcase)
-  - [Code Issues & Resolutions](#Code-Issues--Resolutions)
+- [Overview](#Overview)
+- [Installation](#Installation)
+- [How to Play](#How-to-Play)
+- [MVP](#MVP)
+  - [CLI MVP Goals](#CLI-MVP-Goals)
+  - [Web-App MVP Goals](#Web-App-MVP-Goals)
+    -[Wireframes](#Wireframes)
+- [Post MVP](#Post-MVP)
+- [Project Change Log](#Project-Change-Log)
+- [Code Showcase](#Code-Showcase)
+- [Code Issues & Resolutions](#Code-Issues--Resolutions)
 
 ## Overview
 
@@ -73,15 +72,15 @@ From inside the root of this repo, simply run `npm start` and follow the prompts
 | Interview 1              |    H     |     1 hr       |     1 hr    |
 | Interview 2              |    H     |     1 hr       |     1 hr    |
 | Interview 3              |    H     |     1 hr       |     1 hr    |
-| Post Interview Planning  |    H     |     2 hrs      |     2 hr    |
-| Polish and Refactor CLI  |    H     |     3 hrs      |             |
+| Post Interview Planning  |    H     |     2 hrs      |     2 hrs   |
+| Polish and Refactor CLI  |    H     |     3 hrs      |     2 hrs   |
 | Add to Portfolio         |    H     |     1 hr       |             |
 | Wireframes               |    M     |     2 hrs      |             |
 | HTML Page                |    M     |     1 hr       |             |
 | Convert to DOM manip.    |    M     |     3 hrs      |             |
 | Base Level Styling       |    M     |     3 hrs      |             |
 | Extra Styling and Anims. |    L     |     5 hrs      |             |
-| TOTAL                    |          |     6 hrs      |     24 hrs  |
+| TOTAL                    |          |     24 hrs     |     7  hrs  |
 
 
 ### Schedule
@@ -90,8 +89,8 @@ From inside the root of this repo, simply run `npm start` and follow the prompts
 | ------- | ----------------------------------------- | --------- |
 | --      | Base Functionality (during interviews)    | YES       |
 |Oct 26th | Post-Interview Planning                   | YES       |
-|Oct 28th | Refactor and Polish CLI app               |           |
-|Oct 29th | Add CLI to Portfolio and LinkedIn         |           |
+|Oct 28th | Refactor and Polish CLI app               | YES       |
+|Oct 29th | Post CLI Game to LinkedIn                 |           |
 |Nov 3rd  | Wireframes, HTML Skeleton                 |           |
 |Nov 4th  | Refactor to DOM, Base Styles              |           |
 |Nov 5th  | Styling Polish and Animations             |           |
