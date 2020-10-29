@@ -56,8 +56,9 @@ class Plant {
   sun = 2
   fertilizer = 0
 
-  constructor(name, maxWater) {
+  constructor(name, plural, maxWater) {
     this.name = name
+    this.plural = plural
     this.maxWater = maxWater
     this.water = maxWater / 2
   }
@@ -77,22 +78,22 @@ class Plant {
   fruitCheck() {
     if (this.growth >= 75) {
      console.log(
-       `There are small green ${this.name} sprouting from some of the flowers. They seem to be getting bigger!`
+       `There are small green ${this.plural} sprouting from some of the flowers. They seem to be getting bigger!`
      )
     }
   }
 
   ripeCheck() {
     if (this.growth >= 100) {
-      console.log("One of the tomatoes has ripened! You did it!!!")
+      console.log(`One of the ${this.plural} has ripened! You did it!!!`)
       win = true
     }
   }
 }
 
-let tomato = new Plant('tomato', 100)
-let watermelon = new Plant('watermelon', 150)
-let corn = new Plant('corn', 80)
+let tomato = new Plant('tomato', 'tomatoes', 100)
+let watermelon = new Plant('watermelon', 'watermelons', 150)
+let corn = new Plant('corn', 'corn', 80)
 
 const plants = [tomato, watermelon, corn]
 
@@ -129,7 +130,7 @@ const plantStats = () => {
   if (dead) {
     console.log("Oh no! Your plant died!")
   } else {
-    console.log(`Your tomato is currently at ${plant.growth}% of its total growth.`)
+    console.log(`Your ${plant.name} is currently at ${plant.growth}% of its total growth.`)
     console.log(`Its soil is at ${plant.water}% moisture.`)
     console.log(`It is currently in ${sunType}.`)
     console.log(`It has ${plant.fertilizer} doses of fertilizer.`)  
@@ -278,9 +279,12 @@ const greetPlayer = () => {
   console.log(spacer)
 
   console.log(`Hi, ${username}! Welcome to the farm!`)
-  console.log('To help you get some growing practice, I want you to grow a ripe tomato.')
-  console.log('There is a seedling in the pot in front of you.')
-  console.log('It will require water, sun, and lots of care to grow into a mature tomato plant!')
+  console.log(
+    `To help you get some growing practice, I want you to grow a plant of your choice to full maturity.`
+  )
+  console.log('I have several seedlings planted and ready for you.')
+  console.log('You will get to choose which type of plant you want to grow.')
+  console.log(`They each require water, sun, and lots of care to grow into a mature, productive plant!`)
   choosePlant(plants)
   readyCheck()
 }
