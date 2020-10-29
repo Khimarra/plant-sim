@@ -1,3 +1,18 @@
+// goal: grow a tomato plant until it has produced a ripe tomato
+
+// base plant stats:
+//   water level - 0-100 (each watering adds 25)
+//   sun preference - shade, partial, full (water drops 5 in shade, 10 in partial, 20 in full)
+//   fertilizer - 0+ (each fertilizing adds 3, lose 1 each turn, over 5 plant starts burning)
+//   growth - 0-100, starts at 0
+
+// each turn, plant can be watered, fertilized, or have sun adjusted
+// growth when water > 25 and < 75 and fertilizer < 6
+// more sun grows faster, but also dries out faster
+// growth +5 each turn, +10 each turn when fertilizer > 0 and < 6
+// once plant is at 50 growth, flowers bud. 60, flowers bloom. 75, fruit forms. 100, fruit is ripe!
+// if plant fails to grow for 3 turns, it dies... game over
+
 const readlineSync = require('readline-sync')
 
 const getInput = (prompt) => {
@@ -7,11 +22,13 @@ const getInput = (prompt) => {
 const spacer = "========================================"
 
 class Plant {
+  // all plants start with these values:
   minWater = 0
   growth = 0
   sun = 2
   fertilizer = 0
 
+  // construct each plant with unique name, plural version of name, max water, and water%
   constructor(name, plural, maxWater) {
     this.name = name
     this.plural = plural
@@ -19,18 +36,52 @@ class Plant {
     this.water = maxWater / 2
   }
 
+  // ===== DO MATH ON PLANT STATS =====
+  addWater(amount) {
+    this.water = this.water + amount
+  }
+
+  addSun(amount) {
+    this.sun = this.sun + amount
+  }
+
+  addFertilizer(amount) {
+    this.fertilizer = this.fertilizer + amount
+  }
+
+  addGrowth(amount) {
+    this.growth = this.growth + amount
+  }
+
+  // ===== ESTABLISH SUN VALUES =====
+  sunTypeCheck() {
+    let sunType
+    if (this.sun === 1) {
+      sunType = "shade"
+    } else if (this.sun === 2) {
+      sunType = "partial sun"
+    } else if (this.sun === 3) {
+      sunType = "full sun"
+    }
+    return sunType
+  }
+
+  // ===== ESTABLISH GROWTH LEVELS =====
+  // plants flower at 50% growth
   flowerCheck() {
     if (this.growth >= 50) {
       console.log("Your can see some flowers on your plant!")
     }
   }
 
+  // flowers bloom at 60% growth
   bloomCheck() {
     if (this.growth >= 60) {
       console.log("Some of the flowers are blooming!")
     }
   }
 
+  // fruits form at 75% growth
   fruitCheck() {
     if (this.growth >= 75) {
      console.log(
@@ -39,10 +90,41 @@ class Plant {
     }
   }
 
+  // fruit is ripe (WIN CONDITION) at 100% growth
   ripeCheck() {
     if (this.growth >= 100) {
       console.log(`One of the ${this.plural} has ripened! You did it!!!`)
       win = true
+    }
+  }
+
+  // plant dies (LOSS CONDITION) if under 0% growth
+  deadCheck() {
+    if (this.growth < 0) {
+      dead = true
+    }
+  }
+
+  // ===== PLANT STATS =====
+  // check and print plant stats each turn
+  stats() {
+
+    // make sure it's still alive
+    this.deadCheck()
+
+    // log current status of plant
+    if (dead) {
+      console.log(`Oh no! Your ${this.name} died!`)
+    } else {
+      console.log(`Your ${this.name} is currently at ${this.growth}% of its total growth.`)
+      console.log(`Its soil is at ${(this.water / this.maxWater) * 100}% moisture.`)
+      console.log(`It is currently in ${this.sunTypeCheck()}.`)
+      console.log(`It has ${this.fertilizer} doses of fertilizer.`)
+
+      this.flowerCheck()
+      this.bloomCheck()
+      this.fruitCheck()
+      this.ripeCheck()
     }
   }
 }
@@ -55,56 +137,18 @@ const plants = [tomato, watermelon, corn]
 
 let plant
 
-let flowers
 let dead
 
 // base plant stats
-let sunType
 let win = false
 let growthZone
 let choice
 let validChoice 
 
-// check and print plant stats each turn
-const plantStats = () => {
-  // establish sun values
-  if (plant.sun === 1) {
-    sunType = 'shade'
-  } else if (plant.sun === 2) {
-    sunType = 'partial sun'
-  } else if (plant.sun === 3) {
-    sunType = 'full sun'
-  }
-
-  // establish growth levels
-
-  if (plant.growth < 0) {
-    dead = true
-  }
-
-  // log current status of plant
-  if (dead) {
-    console.log("Oh no! Your plant died!")
-  } else {
-    console.log(`Your ${plant.name} is currently at ${plant.growth}% of its total growth.`)
-    console.log(`Its soil is at ${plant.water}% moisture.`)
-    console.log(`It is currently in ${sunType}.`)
-    console.log(`It has ${plant.fertilizer} doses of fertilizer.`)  
-
-    plant.flowerCheck()
-
-    plant.bloomCheck()
-
-    plant.fruitCheck()
-
-    plant.ripeCheck()
-  }
-}
-
 // everything that happens on each turn
 const playerTurn = () => {
   // check plant stats before entering while loop to know if conditions are met
-  plantStats()
+  plant.stats()
 
   // continues to run until plant dies or player wins
   while (!win && !dead) {
@@ -120,11 +164,11 @@ const playerTurn = () => {
     if (validChoice) {
       // add growth if there is fertilizer, lose growth if there is too much
       if (plant.fertilizer >= 1 && plant.fertilizer <= 5) {
-        plant.growth += 5
-        plant.fertilizer -= 1
+        plant.addGrowth(5)
+        plant.addFertilizer(-1)
       } else if (plant.fertilizer > 5) {
-        plant.growth -= 2
-        plant.fertilizer -= 1
+        plant.addGrowth(-2)
+        plant.addFertilizer(-1)
         console.log("Uh oh, all that fertilizer is hurting your plant!")
       }
   
@@ -132,22 +176,23 @@ const playerTurn = () => {
   
       // lose water each turn, gain growth if growthZone is true
       if (plant.sun === 1) {
-        plant.water -= 5
+        plant.addWater(-5)
       } else if (plant.sun === 2 && growthZone) {
-        plant.water -= 10
-        plant.growth += 2
+        plant.addWater(-10)
+        plant.addGrowth(2)
       } else if (plant.sun === 2 && !growthZone) {
-        plant.water -= 10
+        plant.addWater(-10)
       } else if (plant.sun === 3 && growthZone) {
-        plant.water -= 20
-        plant.growth += 4
+        plant.addWater(-20)
+        plant.addGrowth(4)
       } else if (plant.sun === 3 && !growthZone) {
-        plant.water -= 20
+        plant.addWater(-20)
       }
 
       growthCheck()
+
       // log stats again before re-entering the while loop
-      plantStats()
+      plant.stats()
     }
   }
 }
@@ -156,27 +201,26 @@ const playerTurn = () => {
 // if water is under 0% or over 100%, lose a lot of growth
 const growthCheck = () => {
   if (growthZone) {
-    plant.growth += 5
+    plant.addGrowth(5)
   } else if (plant.water < 0) {
-    plant.growth -= 20
+    plant.addGrowth(-20)
     console.log(
       "Your plant is dying! Water it and move it to the shade immediately!"
     )
-  } else if (plant.water > 100) {
-    plant.growth -= 10
+  } else if (plant.water > plant.maxWater) {
+    plant.addGrowth(10)
     console.log(
       "Your plant is dying! Move it into the sun to help it dry out immediately!"
     )
-  } else if (plant.water < 25) {
+  } else if (plant.water < plant.maxWater * 0.25) {
     console.log(
       "Your plant is looking pretty dry, you may want to water it, or decrease its sun!"
     )
-  } else if (plant.water > 75) {
+  } else if (plant.water > plant.maxWater * 0.75) {
     console.log(
       "Your plant is drowning! You may want to increase the sun to help dry it out!"
     )
   }
-
 }
 
 // choice options - depends on sun
@@ -202,19 +246,19 @@ const playerChoice = () => {
 const evaluateChoice = () => {
   validChoice = true
   if (choice === "W") {
-    plant.water += 25
+    plant.addWater(25)
     console.log(spacer)
     console.log("You have watered your plant.")
   } else if (choice === "IS") {
-    plant.sun += 1
+    plant.addSun(1)
     console.log(spacer)
     console.log("You have increased the amount of sun for your plant.")
   } else if (choice === "DS") {
-    plant.sun -= 1
+    plant.addSun(-1)
     console.log(spacer)
     console.log("You have decreased the amount of sun for your plant.")
   } else if (choice === "F") {
-    plant.fertilizer += 3
+    plant.addFertilizer(3)
     console.log(spacer)
     console.log("You have fertilized your plant.")
   } else if (choice === "N") {
@@ -236,7 +280,7 @@ const greetPlayer = () => {
 
   console.log(`Hi, ${username}! Welcome to the farm!`)
   console.log(
-    `To help you get some growing practice, I want you to grow a plant of your choice to full maturity.`
+    `To help you get some growing practice, I want you to produce your first harvest.`
   )
   console.log('I have several seedlings planted and ready for you.')
   console.log('You will get to choose which type of plant you want to grow.')
@@ -252,25 +296,28 @@ const choosePlant = (arr) => {
     option = i + 1
     console.log(option, arr[i].name)
   }
-  let choice = getInput('What kind of plant would you like to grow?')
+  let choice = getInput("What kind of plant would you like to grow?")
 
   choice = parseInt(choice)
 
   while (!validNumber) {
     if (isNaN(choice)) {
-      console.log('not a number')
-    } else if (Number.isInteger(choice)) {
+      choice = getInput("That's not a plant! Choose a plant by the number.")
+    } else if (Number.isInteger(parseFloat(choice))) {
       if (choice > 0 && choice <= arr.length) {
         validNumber = true
         plant = arr[choice - 1]
         console.log(`${plant.name}`)
       } else {
-        console.log("wrong number")
+        choice = getInput(
+          "That plant isn't available. Choose a plant by the number."
+        )
       }
     } else {
-      console.log('invalid input')
+      choice = getInput(
+        "Are you trying to grow PART of a plant? Choose a whole plant by its number."
+      )
     }
-    
   }
 }
 
